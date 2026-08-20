@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hello Mobile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --primary:#2563EB;--on-primary:#FFF;--secondary:#7C3AED;
+  --accent:#EC4899;--bg:#FFF;--fg:#0F172A;--card:#FFF;
+  --muted:#F1F5FD;--muted-fg:#475569;--border:#E4ECFC;
+}
+html{scroll-snap-type:y proximity;scroll-behavior:smooth}
+body{font-family:'Work Sans',sans-serif;color:var(--fg);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:'Outfit',sans-serif;line-height:1.15}
+img{max-width:100%;display:block}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:'Outfit',sans-serif;font-weight:700;font-size:1.25rem;color:var(--primary)}
+.nav-links{display:flex;gap:20px}
+.nav-links a{text-decoration:none;color:var(--muted-fg);font-size:.9rem;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--primary)}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:4px}
+.nav-toggle svg{width:24px;height:24px;color:var(--fg)}
+
+/* HERO */
+.hero{scroll-snap-align:start;padding:80px 20px 60px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-120px;right:-120px;width:320px;height:320px;background:radial-gradient(circle,var(--accent) 0%,transparent 70%);opacity:.12;pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-80px;left:-80px;width:260px;height:260px;background:radial-gradient(circle,var(--secondary) 0%,transparent 70%);opacity:.1;pointer-events:none}
+.hero-badge{display:inline-block;background:var(--muted);color:var(--primary);font-size:.8rem;font-weight:600;padding:6px 16px;border-radius:100px;margin-bottom:20px;letter-spacing:.03em}
+.hero h1{font-size:clamp(2rem,6vw,3.5rem);font-weight:700;margin-bottom:16px;max-width:600px;margin-left:auto;margin-right:auto}
+.hero h1 span{color:var(--primary)}
+.hero p{font-size:clamp(1rem,2.5vw,1.2rem);color:var(--muted-fg);max-width:480px;margin:0 auto 32px}
+.hero-cta{display:inline-flex;align-items:center;gap:8px;background:var(--primary);color:var(--on-primary);padding:14px 32px;border-radius:12px;text-decoration:none;font-weight:600;font-size:1rem;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 14px rgba(37,99,235,.35)}
+.hero-cta:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(37,99,235,.45)}
+.hero-cta svg{width:18px;height:18px}
+
+/* FEATURES */
+.features{scroll-snap-align:start;padding:80px 20px;background:var(--muted)}
+.features h2{text-align:center;font-size:clamp(1.5rem,4vw,2.25rem);margin-bottom:12px}
+.features .sub{text-align:center;color:var(--muted-fg);max-width:480px;margin:0 auto 48px;font-size:1rem}
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;max-width:960px;margin:0 auto}
+.feature-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px 28px;transition:transform .25s,box-shadow .25s}
+.feature-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(15,23,42,.08)}
+.icon-wrap{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.icon-wrap svg{width:24px;height:24px}
+.icon-blue{background:#EFF6FF;color:var(--primary)}
+.icon-purple{background:#F3E8FF;color:var(--secondary)}
+.icon-pink{background:#FDF2F8;color:var(--accent)}
+.feature-card h3{font-size:1.15rem;margin-bottom:8px}
+.feature-card p{color:var(--muted-fg);font-size:.95rem}
+
+/* STATS */
+.stats{scroll-snap-align:start;padding:60px 20px;display:flex;justify-content:center;gap:48px;flex-wrap:wrap;text-align:center}
+.stat-item h3{font-size:clamp(1.8rem,5vw,2.5rem);font-weight:700;color:var(--primary)}
+.stat-item p{font-size:.85rem;color:var(--muted-fg);margin-top:4px}
+
+/* TESTIMONIALS */
+.testimonials{scroll-snap-align:start;padding:80px 20px;background:var(--muted)}
+.testimonials h2{text-align:center;font-size:clamp(1.5rem,4vw,2.25rem);margin-bottom:48px}
+.testimonial-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;max-width:960px;margin:0 auto}
+.testimonial{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px}
+.testimonial p{font-size:.95rem;color:var(--muted-fg);margin-bottom:16px;font-style:italic}
+.testimonial-author{display:flex;align-items:center;gap:12px}
+.testimonial-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.85rem}
+.testimonial-name{font-weight:600;font-size:.9rem}
+.testimonial-role{font-size:.8rem;color:var(--muted-fg)}
+
+/* CTA */
+.cta-section{scroll-snap-align:start;padding:80px 20px;text-align:center}
+.cta-box{max-width:640px;margin:0 auto;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:20px;padding:56px 32px;color:#fff}
+.cta-box h2{font-size:clamp(1.5rem,4vw,2rem);margin-bottom:12px}
+.cta-box p{opacity:.9;margin-bottom:28px;font-size:1rem}
+.cta-btn{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--primary);padding:14px 32px;border-radius:12px;text-decoration:none;font-weight:600;font-size:1rem;transition:transform .2s,box-shadow .2s}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.15)}
+
+/* FOOTER */
+footer{padding:40px 20px;text-align:center;border-top:1px solid var(--border);color:var(--muted-fg);font-size:.85rem}
+footer a{color:var(--primary);text-decoration:none}
+
+@media(max-width:640px){
+  .nav-links{display:none}
+  .nav-toggle{display:block}
+  .nav-links.open{display:flex;flex-direction:column;position:absolute;top:56px;left:0;right:0;background:var(--bg);padding:16px 20px;border-bottom:1px solid var(--border);gap:12px}
+  .hero{padding:60px 16px 48px}
+  .features,.testimonials{padding:60px 16px}
+  .stats{gap:32px}
+  .cta-box{padding:40px 20px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Hello.</div>
+  <div class="nav-links" id="navLinks">
+    <a href="#features">Features</a>
+    <a href="#testimonials">Reviews</a>
+    <a href="#cta">Get Started</a>
+  </div>
+  <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Toggle menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+  </button>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge">Now in Beta</div>
+  <h1>Build <span>beautiful</span> mobile experiences</h1>
+  <p>A modern toolkit for crafting fast, accessible, and stunning interfaces that your users will love.</p>
+  <a href="#cta" class="hero-cta">
+    Get Early Access
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  </a>
+</section>
+
+<section class="stats">
+  <div class="stat-item"><h3>10k+</h3><p>Developers</p></div>
+  <div class="stat-item"><h3>4.9</h3><p>Rating</p></div>
+  <div class="stat-item"><h3>99%</h3><p>Uptime</p></div>
+  <div class="stat-item"><h3>50ms</h3><p>Avg Response</p></div>
+</section>
+
+<section class="features" id="features">
+  <h2>Why you'll love it</h2>
+  <p class="sub">Everything you need to ship production-ready mobile interfaces, without the bloat.</p>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="icon-wrap icon-blue">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M12 18h.01"/></svg>
+      </div>
+      <h3>Mobile First</h3>
+      <p>Designed for thumb reach, safe areas, and platform-native gestures from day one.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon-wrap icon-purple">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
+      <h3>Composable</h3>
+      <p>Mix and match components. Every piece works together and scales with your product.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon-wrap icon-pink">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      </div>
+      <h3>Blazing Fast</h3>
+      <p>Zero-runtime CSS, optimized assets, and lazy loading for instant page loads.</p>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials" id="testimonials">
+  <h2>What people are saying</h2>
+  <div class="testimonial-grid">
+    <div class="testimonial">
+      <p>"Shipped our redesign in a week. The component quality is outstanding — accessible by default and gorgeous out of the box."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">S</div>
+        <div><div class="testimonial-name">Sarah Chen</div><div class="testimonial-role">Lead Engineer, Acme</div></div>
+      </div>
+    </div>
+    <div class="testimonial">
+      <p>"Finally a toolkit that takes mobile seriously. Safe areas, touch targets, dark mode — all handled perfectly."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">M</div>
+        <div><div class="testimonial-name">Marcus Rivera</div><div class="testimonial-role">Product Designer, Flow</div></div>
+      </div>
+    </div>
+    <div class="testimonial">
+      <p>"The DX is incredible. TypeScript support, tree-shakeable exports, and docs that actually make sense."</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">A</div>
+        <div><div class="testimonial-name">Aisha Patel</div><div class="testimonial-role">CTO, NovaBuild</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section" id="cta">
+  <div class="cta-box">
+    <h2>Ready to build something beautiful?</h2>
+    <p>Join thousands of developers shipping better mobile experiences.</p>
+    <a href="#" class="cta-btn">
+      Get Started Free
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <p>Built with care &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a> &middot; &copy; 2026 Hello Mobile</p>
+</footer>
+
+</body>
+</html>
